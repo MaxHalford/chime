@@ -1,6 +1,7 @@
-# horn
-
-Sound notifications for Python made easy.
+<div align='center'>
+    <h1>horn</h1>
+    <q>Python sound notifications made easy.</q>
+</div>
 
 I made this because I wanted something simple to monitor number crunching scripts that take some time to run.
 
@@ -9,6 +10,8 @@ I made this because I wanted something simple to monitor number crunching script
 ```sh
 pip install horn
 ```
+
+This library has no dependencies.
 
 ## Basic usage
 

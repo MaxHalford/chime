@@ -136,7 +136,7 @@ This will play the sound synchronously and print an error if something goes wron
 
 ## Adding a new theme
 
-I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Each theme is made up of four files: `success.wav`, `warning.wav`, `error.wav`, and `info.wav`. Be creative! 👩‍🎨
+I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). A theme is made up of four files: `success.wav`, `warning.wav`, `error.wav`, and `info.wav`. Be creative! 👩‍🎨
 
 ## Things to do
 

@@ -1,6 +1,23 @@
 <div align='center'>
-    <h1>chime</h1>
-    <q><i>Python sound notifications made easy.</i></q>
+  <h1>chime</h1>
+  <!-- CI -->
+  <a href="https://github.com/MaxHalford/chime/actions">
+    <img src="https://github.com/MaxHalford/chime/workflows/test/badge.svg&style=flat-square" alt="pypi">
+  </a>
+  <!-- PyPI -->
+  <a href="https://pypi.org/project/chime">
+    <img src="https://img.shields.io/pypi/v/chime.svg?label=release&color=blue&style=flat-square" alt="pypi">
+  </a>
+  <!-- PePy -->
+  <a href="https://pepy.tech/project/chime">
+    <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&maxAge=86400&label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fchime" alt="pepy">
+  </a>
+  <!-- License -->
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="license">
+  </a>
+  <br>
+  <q><i>Python sound notifications made easy.</i></q>
 </div>
 <br>
 

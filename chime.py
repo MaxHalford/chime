@@ -66,7 +66,7 @@ def play_wav(path: pathlib.Path, silent=False):
     if system == 'Darwin':
         run(f'afplay {path}', silent)
     elif system == 'Linux':
-        run(f'afplay {path}', silent)
+        run(f'aplay {path}', silent)
     elif system == 'Windows':
         winsound.PlaySound(str(path), winsound.SND_ASYNC | winsound.SND_FILENAME)
     else:

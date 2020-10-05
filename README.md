@@ -1,8 +1,8 @@
 <div align='center'>
     <h1>horn</h1>
-    <q>Python sound notifications made easy.</q>
-    <br>
+    <q><i>Python sound notifications made easy.</i></q>
 </div>
+<br>
 
 I made this because I wanted something simple to monitor long-running number crunching scripts.
 
@@ -12,7 +12,7 @@ I made this because I wanted something simple to monitor long-running number cru
 pip install horn
 ```
 
-This library has no dependencies. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.4.
+This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.4.
 
 ## Basic usage
 

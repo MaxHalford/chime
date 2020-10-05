@@ -38,7 +38,8 @@ def run(command: str, silent: bool):
     else:
 
         try:
-            subprocess.run(command, shell=True, check=True, capture_output=True)
+            subprocess.run(command, shell=True,
+                           check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             warnings.warn(f'{e} stderr: {e.stderr.decode().strip()}')
 
@@ -66,9 +67,10 @@ def play_wav(path: pathlib.Path, silent=False):
     if system == 'Darwin':
         run(f'afplay {path}', silent)
     elif system == 'Linux':
-        run(f'afplay {path}', silent)
+        run(f'aplay {path}', silent)
     elif system == 'Windows':
-        winsound.PlaySound(str(path), winsound.SND_ASYNC | winsound.SND_FILENAME)
+        winsound.PlaySound(str(path), winsound.SND_ASYNC |
+                           winsound.SND_FILENAME)
     else:
         raise RuntimeError(f'Unsupported platform ({sys.platform})')
 

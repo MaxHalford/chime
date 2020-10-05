@@ -1,8 +1,10 @@
 <div align='center'>
   <h1>chime</h1>
+  <q><i>Python sound notifications made easy.</i></q>
+  <br>
   <!-- CI -->
   <a href="https://github.com/MaxHalford/chime/actions">
-    <img src="https://github.com/MaxHalford/chime/workflows/test/badge.svg&style=flat-square" alt="pypi">
+    <img src="https://github.com/MaxHalford/chime/workflows/test/badge.svg&style=flat-square" alt="ci">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">
@@ -16,8 +18,6 @@
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="license">
   </a>
-  <br>
-  <q><i>Python sound notifications made easy.</i></q>
 </div>
 <br>
 

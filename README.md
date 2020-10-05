@@ -2,10 +2,12 @@
   <h1>chime</h1>
   <q><i>Python sound notifications made easy.</i></q>
 </div>
+<br>
+
 <div align='center'>
   <!-- CI -->
   <a href="https://github.com/MaxHalford/chime/actions">
-    <img src="https://github.com/MaxHalford/chime/workflows/test/badge.svg&style=flat-square" alt="ci">
+    <img src="https://github.com/MaxHalford/chime/workflows/chime/badge.svg?style=flat-square" alt="ci">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">

@@ -1,7 +1,8 @@
 <div align='center'>
   <h1>chime</h1>
   <q><i>Python sound notifications made easy.</i></q>
-  <br>
+</div>
+<div align='center'>
   <!-- CI -->
   <a href="https://github.com/MaxHalford/chime/actions">
     <img src="https://github.com/MaxHalford/chime/workflows/test/badge.svg&style=flat-square" alt="ci">
@@ -31,7 +32,7 @@ Special thanks to [Michael Vlah](https://github.com/vlahm) for giving up the "ch
 pip install chime
 ```
 
-This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.4.
+This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.6.
 
 ## Basic usage
 

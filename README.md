@@ -123,7 +123,7 @@ A `UserWarning` is raised if you run a `chime` sound on an unsupported platform.
 
 ## It's not working
 
-Did you check you turned your sound? Just kidding.
+Did you check if you turned your sound on? Just kidding. 😜
 
 This library is designed to be non-invasive by default. Therefore, if something goes wrong, it fails silently. If you can't hear any sound and you think that the issue is coming from `chime`, then set the `silent` parameter to `False` when you make a sound:
 
@@ -136,7 +136,7 @@ This will play the sound synchronously and print an error if something goes wron
 
 ## Adding a new theme
 
-I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Be creative 👩‍🎨!
+I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Be creative! 👩‍🎨
 
 ## Things to do
 

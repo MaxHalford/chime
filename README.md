@@ -121,7 +121,7 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
 
-## It's not working
+## I can't hear anything
 
 Did you check if you turned your sound on? Just kidding. 😜
 
@@ -146,9 +146,9 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 
 ## Acknowledgements
 
-- Special thanks to [Michael Vlah](https://github.com/vlahm) for giving up the "chime" name on PyPI.
+- Special thanks to [Michael Vlah](https://github.com/vlahm) for being a gentleman by giving up the "chime" name on PyPI.
 - Thanks to [David Chen](https://github.com/dchen327) for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
 
 ## License
 
-As you would probably expect, this is MIT licensed.
+As you would probably expect, this is [MIT licensed](LICENSE).

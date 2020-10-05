@@ -205,10 +205,10 @@ def notify_exceptions():
 if IPYTHON_INSTALLED:
 
     @magic.magics_class
-    class HornMagics(magic.Magics):
+    class ChimeMagics(magic.Magics):
 
         @magic.line_cell_magic
-        def horn(self, line, cell=None):
+        def chime(self, line, cell=None):
 
             def run(code):
                 try:
@@ -223,4 +223,4 @@ if IPYTHON_INSTALLED:
                 run(cell)
 
     def load_ipython_extension(ipython):
-        ipython.register_magics(HornMagics)
+        ipython.register_magics(ChimeMagics)

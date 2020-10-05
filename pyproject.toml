@@ -1,13 +1,13 @@
 [tool.poetry]
-name = 'horn'
+name = 'chime'
 version = '0.1.0'
 license = 'MIT'
 description = 'Python sound notifications made easy.'
 authors = ['Max Halford <maxhalford25@gmail.com>']
 readme = 'README.md'
 keywords = ['notifications', 'sound', 'wav']
-repository = 'https://github.com/MaxHalford/horn'
-homepage = 'https://github.com/MaxHalford/horn'
+repository = 'https://github.com/MaxHalford/chime'
+homepage = 'https://github.com/MaxHalford/chime'
 include = ['themes/*/*.wav']
 
 [tool.poetry.dependencies]

@@ -26,8 +26,6 @@
 
 I made this because I wanted something simple to monitor long-running number crunching scripts.
 
-Special thanks to [Michael Vlah](https://github.com/vlahm) for giving up the "chime" name on PyPI.
-
 ## Installation
 
 ```sh
@@ -123,6 +121,19 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
 
+## It's not working
+
+Did you check you turned your sound? Just kidding.
+
+This library is designed to be non-invasive by default. Therefore, if something goes wrong, it fails silently. If you can't hear any sound and you think that the issue is coming from `chime`, then set the `silent` parameter to `False` when you make a sound:
+
+```py
+>>> chime.info(silent=False)
+
+```
+
+This will play the sound synchronously and print an error if something goes wrong.
+
 ## Adding a new theme
 
 I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Be creative 👩‍🎨!
@@ -132,6 +143,11 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 - Some mechanism to automatically call `chime.warning` when a warning occurs.
 - Command-line support, maybe.
 - More themes!
+
+## Acknowledgements
+
+- Special thanks to @vlahm for giving up the "chime" name on PyPI.
+- Thanks to @dchen327 for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
 
 ## License
 

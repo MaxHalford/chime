@@ -55,7 +55,7 @@ The theme can be changed by passing a theme name to the `theme` function:
 
 ```
 
-Note that if you set the theme to `'random'`, a random theme will be picked each time you play a sound.
+Note that if you set the theme to `'random'`, then a random theme will be picked each time you play a sound.
 
 ## IPython/Jupyter magic
 
@@ -79,11 +79,11 @@ You can also wrap an entire cell:
 print("I'm a cell")
 ```
 
-The magic command will call `horn.success()` when the line/cell finishes successfully. Otherwise, `horn.error()` is called whenever an exception is raised.
+The magic command will call `horn.success` when the line/cell finishes successfully. Otherwise, `horn.error` is called whenever an exception is raised.
 
 ## Exception notifications
 
-If you run `horn.notify_exceptions()`, then `horn.error()` will be called whenever an exception is raised.
+If you run `horn.notify_exceptions`, then `horn.error` will be called whenever an exception is raised.
 
 ```py
 horn.notify_exceptions()
@@ -93,17 +93,18 @@ raise ValueError("I'm going to make some noise")
 
 ## Platform support
 
-Under the hood, `horn` runs a command in the shell to play a `.wav` file. The program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform). Platform information is available in `sys.platform` as well as the `platform` module from the standard library. Currently, the supported platforms are:
+Under the hood, `horn` runs a command in the shell to play a `.wav` file. The program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform). Platform information is available in the [`sys.platform` variable](https://docs.python.org/3/library/sys.html#sys.platform) as well as the [`platform` module](https://docs.python.org/3/library/platform.html) from the standard library. Currently, the supported platforms are:
 
 - `darwin` (which is technically an OS, but whatever)
 - `linux`
 - `windows`
 
-A `UserWarning` is raised if you run this on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise if you're having trouble with one of the above platforms. I won't bite.
+A `UserWarning` is raised if you run a `horn` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're having trouble with one of the above platforms. I won't bite.
 
 ## Things to do
 
-- Some mechanism to automatically call `horn.warning()` when a warning occurs.
+- Some mechanism to automatically call `horn.warning` when a warning occurs.
+- Command-line support, maybe.
 - More themes!
 
 ## Adding a new theme
@@ -116,4 +117,4 @@ God no. I wouldn't even know where to begin.
 
 ## License
 
-As you would probably except, this is MIT licensed.
+As you would probably expect, this is MIT licensed.

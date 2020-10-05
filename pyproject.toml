@@ -1,0 +1,17 @@
+[tool.poetry]
+name = 'horn'
+version = '0.1.0'
+license = 'MIT'
+description = 'Python sound notifications made easy.'
+authors = ['Max Halford <maxhalford25@gmail.com>']
+readme = 'README.md'
+keywords = ['notifications', 'sound', 'wav']
+repository = 'https://github.com/MaxHalford/horn'
+homepage = 'https://github.com/MaxHalford/horn'
+include = ['themes/*/*.wav']
+
+[tool.poetry.dependencies]
+python = '^3.4'
+
+[tool.poetry.dev-dependencies]
+pytest = '*'

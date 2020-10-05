@@ -1,25 +1,27 @@
 import pathlib
+import random
 import subprocess
 import sys
 import typing
 import warnings
 
+if sys.platform.startswith('windows'):
+    import winsound
+
 try:
-    from IPython.core import interactiveshell
     from IPython.core import magic
     IPYTHON_INSTALLED = True
 except ImportError:
     IPYTHON_INSTALLED = False
 
 
-THEME = 'mario'
+THEME = 'chime'  # default theme
 
 
 __all__ = [
     'error',
     'info',
     'notify_exceptions',
-    'play_wav',
     'success'
     'theme',
     'themes',
@@ -58,8 +60,12 @@ def play_wav(path: pathlib.Path, silent=False):
 
     """
 
-    if sys.platform == 'darwin':
+    if sys.platform.startswith('darwin'):
         run(f'afplay {path}', silent)
+    elif sys.platform.startswith('linux'):
+        run(f'afplay {path}', silent)
+    elif sys.platform.startswith('windows'):
+        winsound.PlaySound(path, winsound.SND_ASYNC | winsound.SND_FILENAME)
     else:
         raise RuntimeError(f'Unsupported platform ({sys.platform})')
 
@@ -72,20 +78,26 @@ def themes_dir() -> pathlib.Path:
 
 def current_theme_dir() -> pathlib.Path:
     """Return the current theme's sound directory."""
+    if THEME == 'random':
+        return themes_dir().joinpath(random.choice(themes()))
     return themes_dir().joinpath(THEME)
 
 
-def themes() -> typing.Set[str]:
-    """Return the themes to choose from."""
-    return set(theme.name for theme in themes_dir().iterdir())
+def themes() -> typing.List[str]:
+    """Return the available themes to choose from."""
+    return sorted(
+        theme.name
+        for theme in themes_dir().iterdir()
+        if not theme.name.startswith('.')  # ignores .DS_Store on MacOS
+    )
 
 
 def theme(name: str = None):
     """Set the current theme.
 
     Parameters:
-        name: The current theme is returned if `None`. The change will be switched if a valid name
-            is provided.
+        name: The change will be switched if a valid name is provided. The current theme is
+            returned if `None`.
 
     Raises:
         ValueError: If the theme is unknown.
@@ -97,7 +109,7 @@ def theme(name: str = None):
     if name is None:
         return THEME
 
-    if name not in themes():
+    if name != 'random' and name not in themes():
         raise ValueError(f'Unknown theme ({name})')
 
     THEME = name
@@ -106,7 +118,7 @@ def theme(name: str = None):
 def notify(event: str, silent: bool):
     path = current_theme_dir().joinpath(f'{event}.wav')
     if not path.exists():
-        raise ValueError(f'{path} is undefined')
+        raise ValueError(f"{path} is doesn't exist")
     play_wav(path, silent)
 
 
@@ -178,12 +190,14 @@ def notify_exceptions():
                 self.shell = ipython
 
             def post_run_cell(self, result):
-                print(dir(result))
                 if result.error_in_exec:
                     error(silent=True)
 
-        # If IPYTHON_INSTALLED, then IPython is imported, which means get_ipython is available
-        ipython = get_ipython()
+        try:
+            ipython = get_ipython()
+        except NameError:
+            return
+
         watcher = Watcher(ipython)
         ipython.events.register('post_run_cell', watcher.post_run_cell)
 

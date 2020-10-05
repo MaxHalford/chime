@@ -38,7 +38,8 @@ def run(command: str, silent: bool):
     else:
 
         try:
-            subprocess.run(command, shell=True, check=True, capture_output=True)
+            pipe = subprocess.PIPE
+            subprocess.run(command, shell=True, check=True, stdout=pipe, stderr=pipe)
         except subprocess.CalledProcessError as e:
             warnings.warn(f'{e} stderr: {e.stderr.decode().strip()}')
 

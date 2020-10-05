@@ -68,7 +68,7 @@ def play_wav(path: pathlib.Path, silent=False):
     elif system == 'Linux':
         run(f'afplay {path}', silent)
     elif system == 'Windows':
-        winsound.PlaySound(path, winsound.SND_ASYNC | winsound.SND_FILENAME)
+        winsound.PlaySound(str(path), winsound.SND_ASYNC | winsound.SND_FILENAME)
     else:
         raise RuntimeError(f'Unsupported platform ({sys.platform})')
 

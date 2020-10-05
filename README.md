@@ -146,8 +146,8 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 
 ## Acknowledgements
 
-- Special thanks to @vlahm for giving up the "chime" name on PyPI.
-- Thanks to @dchen327 for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
+- Special thanks to [Michael Vlah](https://github.com/vlahm) for giving up the "chime" name on PyPI.
+- Thanks to [David Chen](https://github.com/dchen327) for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
 
 ## License
 

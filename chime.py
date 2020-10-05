@@ -1,11 +1,12 @@
 import pathlib
+import platform
 import random
 import subprocess
 import sys
 import typing
 import warnings
 
-if sys.platform.startswith('windows'):
+if platform.system() == 'Windows':
     import winsound
 
 try:
@@ -60,11 +61,13 @@ def play_wav(path: pathlib.Path, silent=False):
 
     """
 
-    if sys.platform.startswith('darwin'):
+    system = platform.system()
+
+    if system == 'Darwin':
         run(f'afplay {path}', silent)
-    elif sys.platform.startswith('linux'):
+    elif system == 'Linux':
         run(f'afplay {path}', silent)
-    elif sys.platform.startswith('windows'):
+    elif system == 'Windows':
         winsound.PlaySound(path, winsound.SND_ASYNC | winsound.SND_FILENAME)
     else:
         raise RuntimeError(f'Unsupported platform ({sys.platform})')

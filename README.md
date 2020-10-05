@@ -113,7 +113,7 @@ raise ValueError("I'm going to make some noise")
 
 ## Platform support
 
-Under the hood, `chime` runs a command in the shell to play a `.wav` file. The command-line program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform). Platform information is available in the [`sys.platform` variable](https://docs.python.org/3/library/sys.html#sys.platform) as well as the [`platform` module](https://docs.python.org/3/library/platform.html) from the standard library. Currently, the supported systems are:
+Under the hood, `chime` runs a command in the shell to play a `.wav` file. The command-line program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform) that you're using. Platform information is available in the [`sys.platform` variable](https://docs.python.org/3/library/sys.html#sys.platform) as well as the [`platform` module](https://docs.python.org/3/library/platform.html) from the standard library. Currently, the supported platforms are:
 
 - Darwin
 - Linux
@@ -125,7 +125,7 @@ A `UserWarning` is raised if you run a `chime` sound on an unsupported platform.
 
 Did you check if you turned your sound on? Just kidding. 😜
 
-This library is designed to be non-invasive by default. Therefore, if something goes wrong, it fails silently. If you can't hear any sound and you think that the issue is coming from `chime`, then set the `silent` parameter to `False` when you make a sound:
+This library is designed to be non-invasive by default. Therefore, if something goes wrong, it fails silently. If you can't hear any sound and you think that the issue is coming from `chime`, then set the `silent` parameter to `False` when you play a sound:
 
 ```py
 >>> chime.info(silent=False)
@@ -136,7 +136,7 @@ This will play the sound synchronously and print an error if something goes wron
 
 ## Adding a new theme
 
-I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Be creative! 👩‍🎨
+I have toyed with the idea of allowing users to add their own theme(s), but at the moment I rather keep things minimal. However, I'm happy to integrate new themes into the library. You can propose a new theme by [opening a pull request](https://github.com/creme-ml/creme/issues/new) that adds the necessary .wav files to the [`themes` directory](https://github.com/MaxHalford/chime/tree/main/themes). Each theme is made up of four files: `success.wav`, `warning.wav`, `error.wav`, and `info.wav`. Be creative! 👩‍🎨
 
 ## Things to do
 
@@ -147,6 +147,7 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 ## Acknowledgements
 
 - Special thanks to [Michael Vlah](https://github.com/vlahm) for being a gentleman by giving up the "chime" name on PyPI.
+- Thanks to u/Pajke on reddit for helping me debug Windows support.
 - Thanks to [David Chen](https://github.com/dchen327) for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
 
 ## License

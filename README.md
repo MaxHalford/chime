@@ -133,10 +133,6 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 - Command-line support, maybe.
 - More themes!
 
-## What about unit tests?
-
-God no. I wouldn't even know where to begin.
-
 ## License
 
 As you would probably expect, this is MIT licensed.

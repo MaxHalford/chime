@@ -125,14 +125,14 @@ A `UserWarning` is raised if you run a `chime` sound on an unsupported platform.
 
 Did you check if you turned your sound on? Just kidding. 😜
 
-This library is designed to be non-invasive by default. Therefore, if something goes wrong, it fails silently. If you can't hear any sound and you think that the issue is coming from `chime`, then set the `silent` parameter to `False` when you play a sound:
+This library is designed to be non-invasive by default. By default, sounds are played asynchronously in separate processes. Therefore, if something goes wrong, the process dies silently. If you can't hear anything and you think that the issue is coming from `chime`, then set the `sync` parameter to `True` when you play a sound:
 
 ```py
->>> chime.info(silent=False)
+>>> chime.info(sync=True)
 
 ```
 
-This will play the sound synchronously and print an error if something goes wrong.
+This will play the sound synchronously and print an error if something goes wrong, which should allow you to debug the issue.
 
 ## Adding a new theme
 

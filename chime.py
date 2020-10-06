@@ -30,21 +30,19 @@ __all__ = [
 ]
 
 
-def run(command: str, silent: bool):
-
-    if silent:
-        subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL)
-
-    else:
+def run(command: str, sync: bool):
+    if sync:
 
         try:
             pipe = subprocess.PIPE
             subprocess.run(command, shell=True, check=True, stdout=pipe, stderr=pipe)
         except subprocess.CalledProcessError as e:
             warnings.warn(f'{e} stderr: {e.stderr.decode().strip()}')
+    else:
+        subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL)
 
 
-def play_wav(path: pathlib.Path, silent=False):
+def play_wav(path: pathlib.Path, sync=True):
     """Play a .wav file.
 
     This function is platform agnostic, meaning that it will determine what to do based on
@@ -52,10 +50,9 @@ def play_wav(path: pathlib.Path, silent=False):
 
     Parameters:
         path: Path to a .wav file.
-        silent: A warning will be issued if something goes wrong and this is `True`. No warning
-            will be issued if `False`. Note that setting this to `True` means the call will block
-            until the .wav file is finished, whereas using `False` will play the .wav file in a
-            separate process.
+        sync: The sound file will be played synchronously if this is `True`. If not, then the sound
+            will be played asynchronously in a separate process. In such a case, the process will
+            fail silently if an error occurs.
 
     Raises:
         RuntimeError: If the platform is not supported.
@@ -65,9 +62,9 @@ def play_wav(path: pathlib.Path, silent=False):
     system = platform.system()
 
     if system == 'Darwin':
-        run(f'afplay {path}', silent)
+        run(f'afplay {path}', sync)
     elif system == 'Linux':
-        run(f'aplay {path}', silent)
+        run(f'aplay {path}', sync)
     elif system == 'Windows':
         winsound.PlaySound(str(path), winsound.SND_ASYNC | winsound.SND_FILENAME)
     else:
@@ -119,70 +116,66 @@ def theme(name: str = None):
     THEME = name
 
 
-def notify(event: str, silent: bool):
-    path = current_theme_dir().joinpath(f'{event}.wav')
-    if not path.exists():
-        raise ValueError(f"{path} is doesn't exist")
-    play_wav(path, silent)
+def notify(event: str, sync: bool):
+    wav_path = current_theme_dir().joinpath(f'{event}.wav')
+    if not wav_path.exists():
+        raise ValueError(f"{wav_path} is doesn't exist")
+    play_wav(wav_path, sync)
 
 
-def success(silent=True):
+def success(sync=False):
     """Make a success sound.
 
     Parameters:
-        silent: A warning will be issued if something goes wrong and this is `True`. No warning
-            will be issued if `False`. Note that setting this to `True` means the call will block
-            until the .wav file is finished, whereas using `False` will play the .wav file in a
-            separate process.
+        sync: The sound file will be played synchronously if this is `True`. If not, then the sound
+            will be played in a separate process. In such a case, the process will fail silently if
+            an error occurs.
 
     """
-    return notify('success', silent)
+    return notify('success', sync)
 
 
-def warning(silent=True):
+def warning(sync=False):
     """Make a warning sound.
 
     Parameters:
-        silent: A warning will be issued if something goes wrong and this is `True`. No warning
-            will be issued if `False`. Note that setting this to `True` means the call will block
-            until the .wav file is finished, whereas using `False` will play the .wav file in a
-            separate process.
+        sync: The sound file will be played synchronously if this is `True`. If not, then the sound
+            will be played in a separate process. In such a case, the process will fail silently if
+            an error occurs.
 
     """
-    return notify('warning', silent)
+    return notify('warning', sync)
 
 
-def error(silent=True):
+def error(sync=False):
     """Make an error sound.
 
     Parameters:
-        silent: A warning will be issued if something goes wrong and this is `True`. No warning
-            will be issued if `False`. Note that setting this to `True` means the call will block
-            until the .wav file is finished, whereas using `False` will play the .wav file in a
-            separate process.
+        sync: The sound file will be played synchronously if this is `True`. If not, then the sound
+            will be played in a separate process. In such a case, the process will fail silently if
+            an error occurs.
 
     """
-    return notify('error', silent)
+    return notify('error', sync)
 
 
-def info(silent=True):
+def info(sync=False):
     """Make a generic information sound.
 
     Parameters:
-        silent: A warning will be issued if something goes wrong and this is `True`. No warning
-            will be issued if `False`. Note that setting this to `True` means the call will block
-            until the .wav file is finished, whereas using `False` will play the .wav file in a
-            separate process.
+        sync: The sound file will be played synchronously if this is `True`. If not, then the sound
+            will be played in a separate process. In such a case, the process will fail silently if
+            an error occurs.
 
     """
-    return notify('info', silent)
+    return notify('info', sync)
 
 
 def notify_exceptions():
     """Will call error() whenever an exception occurs."""
 
     def except_hook(exctype, value, traceback):
-        error(silent=True)
+        error(sync=False)
         sys.__excepthook__(exctype, value, traceback)
     sys.excepthook = except_hook
 
@@ -195,7 +188,7 @@ def notify_exceptions():
 
             def post_run_cell(self, result):
                 if result.error_in_exec:
-                    error(silent=True)
+                    error(sync=False)
 
         try:
             ipython = get_ipython()

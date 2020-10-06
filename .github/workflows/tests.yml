@@ -1,4 +1,4 @@
-name: chime
+name: tests
 
 on: [push]
 

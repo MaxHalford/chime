@@ -6,8 +6,8 @@
 
 <div align='center'>
   <!-- CI -->
-  <a href="https://github.com/MaxHalford/chime/actions">
-    <img src="https://github.com/MaxHalford/chime/workflows/chime/badge.svg?style=flat-square" alt="ci">
+  <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Atests">
+    <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="ci">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">

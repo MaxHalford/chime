@@ -125,7 +125,7 @@ A `UserWarning` is raised if you run a `chime` sound on an unsupported platform.
 
 Did you check if you turned your sound on? Just kidding. 😜
 
-This library is designed to be non-invasive by default. By default, sounds are played asynchronously in separate processes. Therefore, if something goes wrong, the process dies silently. If you can't hear anything and you think that the issue is coming from `chime`, then set the `sync` parameter to `True` when you play a sound:
+This library is designed to be non-invasive. By default, sounds are played asynchronously in unchecked processes. Therefore, if something goes wrong, the process dies silently. If you can't hear anything and you think that the issue is coming from `chime`, then set the `sync` parameter to `True` when you play a sound:
 
 ```py
 >>> chime.info(sync=True)

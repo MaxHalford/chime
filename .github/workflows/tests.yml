@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
     - name: Install aplay
-      run: sudo apt-get install alsa-utils
+      run: sudo apt-get install alsa-utils pulseaudio
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

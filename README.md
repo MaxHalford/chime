@@ -5,9 +5,13 @@
 <br>
 
 <div align='center'>
-  <!-- CI -->
+  <!-- Tests -->
   <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Atests">
-    <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="ci">
+    <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="tests">
+  </a>
+  <!-- Soundboard -->
+  <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Asoundboard">
+    <img src="https://github.com/MaxHalford/chime/workflows/soundboard/badge.svg?style=flat-square" alt="soundboard">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">

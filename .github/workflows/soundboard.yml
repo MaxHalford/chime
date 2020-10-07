@@ -1,0 +1,19 @@
+name: soundboard
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.4
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "chime-soundboard"
+          heroku_email: "maxhalford25@gmail.com"
+          buildpack: "heroku/python"
+          appdir: "soundboard"

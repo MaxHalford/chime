@@ -1,3 +1,4 @@
+import argparse
 import pathlib
 import platform
 import random
@@ -68,8 +69,10 @@ def play_wav(path: pathlib.Path, sync=True, raise_error=True):
 
     if system == 'Darwin':
         run(f'afplay {path}', sync, raise_error)
+
     elif system == 'Linux':
         run(f'aplay {path}', sync, raise_error)
+
     elif system == 'Windows':
         flags = winsound.SND_FILENAME
         if not sync:
@@ -81,6 +84,7 @@ def play_wav(path: pathlib.Path, sync=True, raise_error=True):
                 raise e
             else:
                 warnings.warn(e)
+
     else:
         raise RuntimeError(f'Unsupported platform ({sys.platform})')
 
@@ -243,3 +247,17 @@ if IPYTHON_INSTALLED:
 
     def load_ipython_extension(ipython):
         ipython.register_magics(ChimeMagics)
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('event', nargs='?', default='success',
+                        help='either one of {success, warning, error, info}')
+    parser.add_argument('--theme', help=f'either one of {{{", ".join(themes())}}}')
+    args = parser.parse_args()
+
+    if args.theme:
+        theme(args.theme)
+
+    notify(args.event, sync=False, raise_error=False)

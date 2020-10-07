@@ -1,10 +1,10 @@
-<div align='center'>
+<div align="center">
   <h1>chime</h1>
   <q><i>Python sound notifications made easy.</i></q>
 </div>
 <br>
 
-<div align='center'>
+<div align="center">
   <!-- Tests -->
   <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Atests">
     <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="tests">
@@ -27,6 +27,20 @@
   </a>
 </div>
 <br>
+
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Basic usage](#basic-usage)
+- [Theming](#theming)
+- [IPython/Jupyter magic](#ipythonjupyter-magic)
+- [Exception notifications](#exception-notifications)
+- [Command-line usage](#command-line-usage)
+- [Platform support](#platform-support)
+- [I can't hear anything](#i-cant-hear-anything)
+- [Adding a new theme](#adding-a-new-theme)
+- [Things to do](#things-to-do)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
 
 ## Motivation
 
@@ -120,6 +134,46 @@ chime.notify_exceptions()
 raise ValueError("I'm going to make some noise")
 ```
 
+## Command-line usage
+
+You can run `chime` from the command-line:
+
+```sh
+$ python -m chime
+```
+
+By default, this will play the `success` sound. You can choose which sound to play:
+
+```sh
+$ python -m chime info
+```
+
+You can also choose which theme to use:
+
+```sh
+$ python -m chime info --theme zelda
+```
+
+If you're using bash, then you can use `chime` to tell you when a program has finished as so:
+
+```sh
+$ echo "Hello world!"; python -m chime
+```
+
+This will play the sound regardless of the fact that the first command succeeded or not. If you're running on Windows, then you can run the following equivalent:
+
+```sh
+> echo "Hello world!" & python -m chime
+```
+
+```py
+>>> import platform
+>>> if platform.system() == 'Windows':
+...     import winsound
+...     winsound.play(str(chime.themes_dir().joinpath('zelda').joinpath('success.wav')), flags=winsound.SND_FILENAME)
+
+```
+
 ## Platform support
 
 Under the hood, `chime` runs a command in the shell to play a `.wav` file. The command-line program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform) that you're using. Platform information is available in the [`sys.platform` variable](https://docs.python.org/3/library/sys.html#sys.platform) as well as the [`platform` module](https://docs.python.org/3/library/platform.html) from the standard library. Currently, the supported platforms are:
@@ -157,7 +211,6 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 ## Things to do
 
 - Some mechanism to automatically call `chime.warning` when a warning occurs.
-- Command-line support, maybe.
 - More themes!
 
 ## Acknowledgements
@@ -165,6 +218,7 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 - Special thanks to [Michael Vlah](https://github.com/vlahm) for being a gentleman by giving up the "chime" name on PyPI.
 - Thanks to u/Pajke on reddit for helping me debug Windows support.
 - Thanks to [David Chen](https://github.com/dchen327) for adding Linux support by suggesting the use of [aplay](https://linux.die.net/man/1/aplay).
+- Thanks to [Vincent Warmerdam](https://twitter.com/fishnets88) for suggesting a command-line interface.
 
 ## License
 

@@ -10,7 +10,7 @@
     <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="tests">
   </a>
   <!-- Soundboard -->
-  <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Asoundboard">
+  <a href="https://chime-soundboard.herokuapp.com/">
     <img src="https://github.com/MaxHalford/chime/workflows/soundboard/badge.svg?style=flat-square" alt="soundboard">
   </a>
   <!-- PyPI -->

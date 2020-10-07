@@ -19,6 +19,6 @@ for theme in chime.themes():
         if st.button(event, key=f'{theme}/{event}'):
             chime.theme(theme)
             try:
-                eval(f'chime.{event}(sync=True)')
+                eval(f'chime.{event}(sync=True, raise_error=True)')
             except Exception as e:
                 st.write(e)

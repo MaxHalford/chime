@@ -1,2 +1,2 @@
-chime @ git+https://github.com/MaxHalford/chime
+chime
 streamlit

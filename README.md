@@ -170,7 +170,7 @@ This will play the sound regardless of the fact that the first command succeeded
 >>> import platform
 >>> if platform.system() == 'Windows':
 ...     import winsound
-...     winsound.play(str(chime.themes_dir().joinpath('zelda').joinpath('success.wav')), flags=winsound.SND_FILENAME)
+...     winsound.PlaySound(str(chime.themes_dir().joinpath('zelda').joinpath('success.wav')), flags=winsound.SND_FILENAME)
 
 ```
 

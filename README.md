@@ -80,7 +80,7 @@ The theme can be changed by passing a theme name to the `theme` function:
 ```
 
 - You can listen to the sounds interactively via [this soundboard](https://chime-soundboard.herokuapp.com/), which is made with [Streamlit](https://www.streamlit.io/).
-- A random theme will be picked each time you play a sound if you set the theme to `'random'`
+- A random theme will be picked each time you play a sound if you set the theme to `'random'`.
 
 ## IPython/Jupyter magic
 

@@ -18,4 +18,7 @@ for theme in chime.themes():
     for event in ['success', 'warning', 'error', 'info']:
         if st.button(event, key=f'{theme}/{event}'):
             chime.theme(theme)
-            eval(f'chime.{event}()')
+            try:
+                eval(f'chime.{event}(sync=True)')
+            except Exception as e:
+                st.write(e)

@@ -37,6 +37,7 @@ def run(command: str, sync: bool):
             pipe = subprocess.PIPE
             subprocess.run(command, shell=True, check=True, stdout=pipe, stderr=pipe)
         except subprocess.CalledProcessError as e:
+            raise ValueError(f'{e} stderr: {e.stderr.decode().strip()}')
             warnings.warn(f'{e} stderr: {e.stderr.decode().strip()}')
     else:
         subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL)

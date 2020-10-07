@@ -1,18 +1,22 @@
 [tool.poetry]
-name = 'chime'
-version = '0.2.0'
-license = 'MIT'
-description = 'Python sound notifications made easy.'
-authors = ['Max Halford <maxhalford25@gmail.com>']
-readme = 'README.md'
-keywords = ['notifications', 'sound', 'wav']
-repository = 'https://github.com/MaxHalford/chime'
-homepage = 'https://github.com/MaxHalford/chime'
-include = ['themes/*/*.wav']
+name = "chime"
+version = "0.2.0"
+license = "MIT"
+description = "Python sound notifications made easy."
+authors = ["Max Halford <maxhalford25@gmail.com>"]
+readme = "README.md"
+keywords = ["notifications", "sound", "wav"]
+repository = "https://github.com/MaxHalford/chime"
+homepage = "https://github.com/MaxHalford/chime"
+include = ["themes/*/*.wav"]
 
 [tool.poetry.dependencies]
-python = '^3.6'
+python = "^3.6"
 
 [tool.poetry.dev-dependencies]
-pytest = '*'
-streamlit = '*'
+pytest = "*"
+streamlit = "^0.67.1"
+
+[build-system]
+requires = ["poetry"]
+build-backend = "poetry.masonry.api"

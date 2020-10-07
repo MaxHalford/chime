@@ -12,16 +12,12 @@ This soundboard allows you to listen to the sounds available for each theme in t
 theme. 🤗
 """
 
-for theme in chime.themes():
+for i, theme in enumerate(chime.themes()):
+    if i:
+        st.markdown('---')
     st.header(theme)
 
     for event in ['success', 'warning', 'error', 'info']:
-        st.write(event)
+        st.subheader(event)
         with open(chime.themes_dir().joinpath(f'{theme}/{event}.wav'), 'rb') as wav:
             st.audio(wav.read())
-        # if st.button(event, key=f'{theme}/{event}'):
-        #     chime.theme(theme)
-        #     try:
-        #         eval(f'chime.{event}(sync=True, raise_error=True)')
-        #     except Exception as e:
-        #         st.write(e)

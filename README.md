@@ -137,14 +137,14 @@ This library is designed to be non-invasive. By default, sounds are played async
 
 ```
 
-This will play the sound synchronously and send a warning if something goes wrong, which should allow you to debug the issue. You can also raise an exception instead of issuing a warning by setting the `raise_error` parameter:
+This will play the sound synchronously and issue a warning if something goes wrong, which should allow you to debug the issue. You can also raise an exception instead of sending a warning by setting the `raise_error` parameter:
 
 ```py
 >>> chime.info(sync=True, raise_error=True)
 
 ```
 
-Note that setting won't do anything `raise_error` if `sync` is set to `False`.
+Note that setting `raise_error` won't do anything if `sync` is set to `False`.
 
 ## Adding a new theme
 

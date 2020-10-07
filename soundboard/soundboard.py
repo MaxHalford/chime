@@ -16,9 +16,12 @@ for theme in chime.themes():
     st.header(theme)
 
     for event in ['success', 'warning', 'error', 'info']:
-        if st.button(event, key=f'{theme}/{event}'):
-            chime.theme(theme)
-            try:
-                eval(f'chime.{event}(sync=True, raise_error=True)')
-            except Exception as e:
-                st.write(e)
+        st.write(event)
+        with open(chime.themes_dir().joinpath(f'{theme}/{event}.wav'), 'rb') as wav:
+            st.audio(wav.read())
+        # if st.button(event, key=f'{theme}/{event}'):
+        #     chime.theme(theme)
+        #     try:
+        #         eval(f'chime.{event}(sync=True, raise_error=True)')
+        #     except Exception as e:
+        #         st.write(e)

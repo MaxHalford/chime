@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
     - name: Install aplay
-      run: apt-get install alsa-utils
+      run: sudo apt-get install alsa-utils
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

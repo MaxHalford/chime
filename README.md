@@ -169,14 +169,6 @@ This will play the sound regardless of the fact that the first command succeeded
 > echo "Hello world!" & python -m chime
 ```
 
-```py
->>> import platform
->>> if platform.system() == 'Windows':
-...     import winsound
-...     winsound.PlaySound(str(chime.themes_dir().joinpath('zelda').joinpath('success.wav')), flags=winsound.SND_FILENAME)
-
-```
-
 ## Platform support
 
 Under the hood, `chime` runs a command in the shell to play a `.wav` file. The command-line program that is used depends on the [platform](https://www.wikiwand.com/en/Computing_platform) that you're using. Platform information is available in the [`sys.platform` variable](https://docs.python.org/3/library/sys.html#sys.platform) as well as the [`platform` module](https://docs.python.org/3/library/platform.html) from the standard library. Currently, the supported platforms are:

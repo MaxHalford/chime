@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chime"
-version = "0.3.0"
+version = "0.4.0"
 license = "MIT"
 description = "Python sound notifications made easy."
 authors = ["Max Halford <maxhalford25@gmail.com>"]

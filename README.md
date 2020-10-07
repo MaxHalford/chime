@@ -28,6 +28,9 @@
 </div>
 <br>
 
+## Table of contents
+
+- [Table of contents](#table-of-contents)
 - [Motivation](#motivation)
 - [Installation](#installation)
 - [Basic usage](#basic-usage)
@@ -36,7 +39,7 @@
 - [Exception notifications](#exception-notifications)
 - [Command-line usage](#command-line-usage)
 - [Platform support](#platform-support)
-- [I can't hear anything](#i-cant-hear-anything)
+- [I can't hear anything 🙉](#i-cant-hear-anything-)
 - [Adding a new theme](#adding-a-new-theme)
 - [Things to do](#things-to-do)
 - [Acknowledgements](#acknowledgements)
@@ -184,7 +187,7 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
 
-## I can't hear anything
+## I can't hear anything 🙉
 
 Did you check if you turned your sound on? Just kidding. 😜
 

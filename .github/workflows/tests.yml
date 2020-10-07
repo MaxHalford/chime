@@ -4,11 +4,9 @@ on: [push]
 
 jobs:
   ubuntu:
-
     strategy:
       matrix:
         python: [3.6, 3.7, 3.8]
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -26,14 +24,11 @@ jobs:
       run: |
         pytest
 
-  other:
-
+  macos:
     strategy:
-      matrix:
-        python: [3.6, 3.7, 3.8]
-        platform: [macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.platform }}
+        matrix:
+          python: [3.6, 3.7, 3.8]
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python }}

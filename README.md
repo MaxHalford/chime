@@ -28,7 +28,9 @@
 </div>
 <br>
 
-I made this because I wanted something simple to monitor long-running number crunching scripts.
+## Motivation
+
+I made this because I wanted a simple auditory cue system to tell me when a long-running number crunching script had finished. I didn't want to have to fiddle with the command-line, and also wanted a cross-platform solution. Thus was born `chime`!
 
 ## Installation
 

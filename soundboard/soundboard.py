@@ -3,9 +3,14 @@
 import chime
 import streamlit as st
 
-st.title('`chime` soundboard')
+"""
+# `chime` soundboard 🎶
 
-st.markdown('This soundboard allows you to listen to each sound available in the [`chime`](https://github.com/MaxHalford/chime/) package. Feel welcome to [open a pull request](https://github.com/MaxHalford/chime/compare) if you wish to contribute a new theme.')
+This soundboard allows you to listen to the sounds available for each theme in the Python
+[`chime`](https://github.com/MaxHalford/chime/) package. Feel welcome to
+[open a pull request](https://github.com/MaxHalford/chime/compare) if you wish to contribute a new
+theme. 🤗
+"""
 
 for theme in chime.themes():
     st.header(theme)

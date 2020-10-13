@@ -15,7 +15,7 @@ python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
-streamlit = "^0.67.1"
+streamlit = "^0.68.2"
 
 [build-system]
 requires = ["poetry"]

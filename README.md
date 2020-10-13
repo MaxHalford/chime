@@ -145,7 +145,7 @@ You can run `chime` from the command-line:
 $ python -m chime
 ```
 
-By default, this will play the `success` sound. You can choose which sound to play:
+By default, this will play the success sound. You can also choose which sound to play, like so:
 
 ```sh
 $ python -m chime info
@@ -157,7 +157,7 @@ You can also choose which theme to use:
 $ python -m chime info --theme zelda
 ```
 
-If you're using bash, then you can use `chime` to tell you when a program has finished as so:
+If you're using bash, then you can use `chime` to notify you when a program finishes:
 
 ```sh
 $ echo "Hello world!"; python -m chime

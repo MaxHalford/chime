@@ -250,7 +250,7 @@ if IPYTHON_INSTALLED:
 
 
 def main():
-    """Command-line linterface."""
+    """Command-line interface."""
     parser = argparse.ArgumentParser()
     parser.add_argument('event', nargs='?', default='success',
                         help='either one of {success, warning, error, info}')

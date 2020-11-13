@@ -249,15 +249,17 @@ if IPYTHON_INSTALLED:
         ipython.register_magics(ChimeMagics)
 
 
-if __name__ == '__main__':
-
+def main():
+    """Command-line interface."""
     parser = argparse.ArgumentParser()
     parser.add_argument('event', nargs='?', default='success',
                         help='either one of {success, warning, error, info}')
     parser.add_argument('--theme', help=f'either one of {{{", ".join(themes())}}}')
     args = parser.parse_args()
-
     if args.theme:
         theme(args.theme)
-
     notify(args.event, sync=False, raise_error=False)
+
+
+if __name__ == '__main__':
+    main()

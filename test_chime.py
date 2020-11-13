@@ -1,3 +1,4 @@
+import subprocess
 import time
 
 import pytest
@@ -20,3 +21,7 @@ def test_no_warning():
 
 def test_no_exception():
     chime.success(sync=True, raise_error=True)
+
+
+def test_script():
+    subprocess.run(["chime"], check=True)

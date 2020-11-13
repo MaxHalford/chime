@@ -142,31 +142,31 @@ raise ValueError("I'm going to make some noise")
 You can run `chime` from the command-line:
 
 ```sh
-$ python -m chime
+$ chime
 ```
 
 By default, this will play the success sound. You can also choose which sound to play, like so:
 
 ```sh
-$ python -m chime info
+$ chime info
 ```
 
 You can also choose which theme to use:
 
 ```sh
-$ python -m chime info --theme zelda
+$ chime info --theme zelda
 ```
 
 If you're using bash, then you can use `chime` to notify you when a program finishes:
 
 ```sh
-$ echo "Hello world!"; python -m chime
+$ echo "Hello world!"; chime
 ```
 
 This will play the sound regardless of the fact that the first command succeeded or not. If you're running on Windows, then you can run the following equivalent:
 
 ```sh
-> echo "Hello world!" & python -m chime
+> echo "Hello world!" & chime
 ```
 
 ## Platform support

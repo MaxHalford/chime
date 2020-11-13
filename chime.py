@@ -254,8 +254,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('event', nargs='?', default='success',
                         help='either one of {success, warning, error, info}')
-    parser.add_argument('--theme',
-                        help=f'either one of {{{", ".join(themes())}}}')
+    parser.add_argument('--theme', help=f'either one of {{{", ".join(themes())}}}')
     args = parser.parse_args()
     if args.theme:
         theme(args.theme)

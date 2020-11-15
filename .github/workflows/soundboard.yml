@@ -14,6 +14,7 @@ jobs:
         run: heroku container:login
 
       - name: Build and push
-        - run: heroku git:remote --app chime-soundboard
-        - run: git subtree push --prefix soundboard heroku main
+        - run: |
+          heroku git:remote --app chime-soundboard
+          git subtree push --prefix soundboard heroku main
 

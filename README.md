@@ -87,7 +87,7 @@ Several themes are available:
 
 ```py
 >>> chime.themes()
-['chime', 'mario', 'zelda']
+['big-sur', 'chime', 'mario', 'zelda']
 
 ```
 

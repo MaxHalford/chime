@@ -17,5 +17,5 @@ jobs:
           heroku_email: maxhalford25@gmail.com
           buildpack: heroku/python
           appdir: soundboard
-          healthcheck: chime-soundboard.herokuapp.com
+          healthcheck: https://chime-soundboard.herokuapp.com/
           delay: 10

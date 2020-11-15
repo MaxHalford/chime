@@ -13,4 +13,6 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           heroku git:remote --app chime-soundboard
+          git config --global user.name MaxHalford
+          git config --global user.email maxhalford25@gmail.com
           git subtree push --prefix soundboard heroku main

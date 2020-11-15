@@ -1,5 +1,6 @@
 import subprocess
 import time
+import typing
 
 import pytest
 
@@ -25,3 +26,12 @@ def test_no_exception():
 
 def test_script():
     subprocess.run(["chime"], check=True)
+
+
+@pytest.mark.parametrize("theme", [theme for theme in chime.themes()])
+@pytest.mark.parametrize("event",
+                         [lambda x: x.error(), lambda x: x.info(), lambda x: x.success(),
+                          lambda x: x.warning()])
+def test_theme_events(theme: str, event: typing.Callable):
+    chime.theme(theme)
+    assert event(chime) is None

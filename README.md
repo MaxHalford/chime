@@ -40,6 +40,7 @@
 - [Command-line usage](#command-line-usage)
 - [Platform support](#platform-support)
 - [I can't hear anything 🙉](#i-cant-hear-anything-)
+- [Setting a default theme](#setting-a-default-theme)
 - [Adding a new theme](#adding-a-new-theme)
 - [Things to do](#things-to-do)
 - [Acknowledgements](#acknowledgements)
@@ -198,6 +199,18 @@ This will play the sound synchronously and issue a warning if something goes wro
 ```
 
 Note that setting `raise_error` won't do anything if `sync` is set to `False`.
+
+## Setting a default theme
+
+To change the default theme a configuration file may be created in `~/.config/chime/chime.conf` on Unix or `%APPDATA%\chime\chime.ini` on Windows.
+
+For example, to change the default theme to `'zelda'` the configuration file would contain:
+
+```ini
+[chime]
+theme = zelda
+
+```
 
 ## Adding a new theme
 

@@ -1,4 +1,5 @@
 import argparse
+import os
 import pathlib
 import platform
 import random
@@ -17,7 +18,23 @@ except ImportError:
     IPYTHON_INSTALLED = False
 
 
-THEME = 'chime'  # default theme
+def _get_config_path(system: str) -> pathlib.Path:
+    """Return the path of the config file.
+
+    Parameters:
+        system: The OS being used.
+    """
+    home_dir = pathlib.Path.home()
+    if system == "Windows":
+        config_path = (
+            pathlib.Path(
+                         os.getenv('APPDATA',
+                                   home_dir / pathlib.Path("AppData", "Roaming")))
+            / pathlib.Path("chime", "chime.ini")
+        )
+    else:
+        config_path = home_dir / pathlib.Path(".config", "chime", "chime.conf")
+    return config_path.resolve().absolute()
 
 
 __all__ = [

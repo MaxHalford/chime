@@ -1,4 +1,7 @@
+import pathlib
 import subprocess
+import tempfile
+import textwrap
 import time
 import typing
 
@@ -48,3 +51,14 @@ def test__get_config_path(system: str, expected_config_path: str,
     monkeypatch.setenv('APPDATA', '/Users/chime/AppData/Roaming')
     config_path = chime._get_config_path(system)
     assert config_path.as_posix() == expected_config_path
+
+
+def test__get_default_theme():
+    config_text = textwrap.dedent('''\
+    [chime]
+    theme = zelda
+    ''')
+    with tempfile.NamedTemporaryFile() as chime_config:
+        chime_config.write(config_text.encode())
+        chime._get_default_theme(pathlib.Path(chime_config.name), fallback_theme='chime')
+        assert chime.theme() == 'zelda'

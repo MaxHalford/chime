@@ -2,6 +2,7 @@ import subprocess
 import time
 import typing
 
+import _pytest.monkeypatch
 import pytest
 
 import chime
@@ -35,3 +36,15 @@ def test_script():
 def test_theme_events(theme: str, event: typing.Callable):
     chime.theme(theme)
     assert event(chime) is None
+
+
+@pytest.mark.parametrize('system, expected_config_path',
+                         [('Linux', '/Users/chime/.config/chime/chime.conf'),
+                          ('Darwin', '/Users/chime/.config/chime/chime.conf'),
+                          ('Windows', '/Users/chime/AppData/Roaming/chime/chime.ini')])
+def test__get_config_path(system: str, expected_config_path: str,
+                          monkeypatch: _pytest.monkeypatch.MonkeyPatch):
+    monkeypatch.setenv('HOME', '/Users/chime')
+    monkeypatch.setenv('APPDATA', '/Users/chime/AppData/Roaming')
+    config_path = chime._get_config_path(system)
+    assert config_path.as_posix() == expected_config_path

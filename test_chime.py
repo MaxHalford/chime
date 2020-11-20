@@ -1,5 +1,6 @@
 import importlib
 import pathlib
+import platform
 import subprocess
 import tempfile
 import textwrap
@@ -70,12 +71,19 @@ def test__get_config_path(system: str, expected_config_path: str,
     assert config_path == expected_config_path
 
 
-def test__get_default_theme():
+def test_config_file(monkeypatch: _pytest.monkeypatch.MonkeyPatch):
+    assert chime.theme() == 'chime'
     config_text = textwrap.dedent('''\
     [chime]
     theme = zelda
     ''')
-    with tempfile.NamedTemporaryFile() as chime_config:
-        chime_config.write(config_text.encode())
-        chime._get_default_theme(pathlib.Path(chime_config.name), fallback_theme='chime')
+    config_file_dir = pathlib.Path('.config', 'chime')
+    monkeypatch.setattr(platform, name='system', value=lambda: 'Linux')
+    with tempfile.TemporaryDirectory() as home_dir:
+        home_dir_path = pathlib.Path(home_dir)
+        monkeypatch.setattr(pathlib.Path, name='home', value=lambda: home_dir_path)
+        full_config_dir = (home_dir_path / config_file_dir)
+        full_config_dir.mkdir(parents=True)
+        (full_config_dir / pathlib.Path('chime.conf')).write_text(config_text)
+        importlib.reload(chime)
         assert chime.theme() == 'zelda'

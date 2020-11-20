@@ -43,11 +43,11 @@ def test_no_exception():
 
 
 def test_script():
-    subprocess.run(["chime"], check=True)
+    subprocess.run(['chime'], check=True)
 
 
-@pytest.mark.parametrize("theme", [theme for theme in chime.themes()])
-@pytest.mark.parametrize("event",
+@pytest.mark.parametrize('theme', [theme for theme in chime.themes()])
+@pytest.mark.parametrize('event',
                          [lambda x: x.error(), lambda x: x.info(), lambda x: x.success(),
                           lambda x: x.warning()])
 def test_theme_events(theme: str, event: typing.Callable):
@@ -73,10 +73,10 @@ def test__get_config_path(system: str, expected_config_path: str,
 
 def test_config_file(monkeypatch: _pytest.monkeypatch.MonkeyPatch):
     assert chime.theme() == 'chime'
-    config_text = textwrap.dedent('''\
+    config_text = textwrap.dedent("""\
     [chime]
     theme = zelda
-    ''')
+    """)
     config_file_dir = pathlib.Path('.config', 'chime')
     monkeypatch.setattr(platform, name='system', value=lambda: 'Linux')
     with tempfile.TemporaryDirectory() as home_dir:

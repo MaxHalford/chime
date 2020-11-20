@@ -26,15 +26,15 @@ def _get_config_path(system: str) -> pathlib.Path:
         system: The OS being used.
     """
     home_dir = pathlib.Path.home()
-    if system == "Windows":
+    if system == 'Windows':
         config_path = (
             pathlib.Path(
                          os.getenv('APPDATA',
-                                   home_dir / pathlib.Path("AppData", "Roaming")))
-            / pathlib.Path("chime", "chime.ini")
+                                   home_dir / pathlib.Path('AppData', 'Roaming')))
+            / pathlib.Path('chime', 'chime.ini')
         )
     else:
-        config_path = home_dir / pathlib.Path(".config", "chime", "chime.conf")
+        config_path = home_dir / pathlib.Path('.config', 'chime', 'chime.conf')
     return config_path.resolve().absolute()
 
 

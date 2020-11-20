@@ -1,3 +1,4 @@
+import importlib
 import pathlib
 import subprocess
 import tempfile
@@ -9,6 +10,11 @@ import _pytest.monkeypatch
 import pytest
 
 import chime
+
+
+@pytest.fixture(scope='function', autouse=True)
+def reload_chime():
+    importlib.reload(chime)
 
 
 def test_speed():

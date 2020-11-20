@@ -55,16 +55,19 @@ def test_theme_events(theme: str, event: typing.Callable):
 
 
 @pytest.mark.parametrize('system, expected_config_path',
-                         [('Linux', '/Users/chime/.config/chime/chime.conf'),
-                          ('Darwin', '/Users/chime/.config/chime/chime.conf'),
-                          ('Windows', '/Users/chime/AppData/Roaming/chime/chime.ini')])
+                         [('Linux', pathlib.Path('/', 'Users', 'chime', '.config', 'chime',
+                                                 'chime.conf')),
+                          ('Darwin', pathlib.Path('/', 'Users', 'chime', '.config', 'chime',
+                                                  'chime.conf')),
+                          ('Windows', pathlib.Path('/', 'Users', 'chime', 'AppData', 'Roaming',
+                                                   'chime', 'chime.ini'))])
 def test__get_config_path(system: str, expected_config_path: str,
                           monkeypatch: _pytest.monkeypatch.MonkeyPatch):
     monkeypatch.setattr(pathlib.Path, name='home',
                         value=lambda: pathlib.Path('/', 'Users', 'chime'))
     monkeypatch.setenv('APPDATA', '/Users/chime/AppData/Roaming')
     config_path = chime._get_config_path(system)
-    assert config_path.as_posix() == expected_config_path
+    assert config_path == expected_config_path
 
 
 def test__get_default_theme():

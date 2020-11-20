@@ -23,6 +23,7 @@ def mock_pathlib_home(monkeypatch: _pytest.monkeypatch.MonkeyPatch):
     with tempfile.TemporaryDirectory() as home_dir:
         home_dir_path = pathlib.Path(home_dir)
         monkeypatch.setattr(pathlib.Path, name='home', value=lambda: home_dir_path)
+        monkeypatch.setenv('APPDATA', value=str(pathlib.Path(home_dir)))
 
 
 def test_speed():

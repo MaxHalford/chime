@@ -229,6 +229,7 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 - Thanks to [Vincent Warmerdam](https://twitter.com/fishnets88) for suggesting a command-line interface.
 - Calmcode made a [video introduction to chime](https://calmcode.io/chime/introduction.html) ❤️
 - Thanks to [Paulo S. Costa](https://github.com/paw-lu) for contributing in many different ways.
+- Thanks to @d34d_m8 for adding OpenBSD support.
 
 ## License
 

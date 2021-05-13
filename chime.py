@@ -116,6 +116,9 @@ def play_wav(path: pathlib.Path, sync=True, raise_error=True):
     elif system == 'Linux':
         run(f'aplay {path}', sync, raise_error)
 
+    elif system == 'OpenBSD':
+        run(f'aucat -i {path}', sync, raise_error)
+
     elif system == 'Windows':
         flags = winsound.SND_FILENAME
         if not sync:

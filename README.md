@@ -219,6 +219,7 @@ I have toyed with the idea of allowing users to add their own theme(s), but at t
 ## Things to do
 
 - Some mechanism to automatically call `chime.warning` when a warning occurs.
+- Make it work with a remote machine. For instance a Jupyter Notebook hosted on a remote machine.
 - More themes!
 
 ## Acknowledgements

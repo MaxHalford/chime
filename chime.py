@@ -281,7 +281,7 @@ if IPYTHON_INSTALLED:
 
             def run(code):
                 try:
-                    exec(line)
+                    exec(code)
                     success()
                 except Exception as e:
                     error()

@@ -286,6 +286,7 @@ if IPYTHON_INSTALLED:
                     success()
                 except Exception as e:
                     error()
+                    raise e
 
             if cell is None:
                 run(line)

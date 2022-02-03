@@ -276,15 +276,17 @@ if IPYTHON_INSTALLED:
     @magic.magics_class
     class ChimeMagics(magic.Magics):
 
+        @magic.needs_local_scope
         @magic.line_cell_magic
-        def chime(self, line, cell=None):
+        def chime(self, line, cell=None, local_ns=None):
 
             def run(code):
                 try:
-                    exec(line)
+                    exec(code, local_ns)
                     success()
                 except Exception as e:
                     error()
+                    raise e
 
             if cell is None:
                 run(line)

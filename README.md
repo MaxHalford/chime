@@ -41,6 +41,7 @@
 - [Platform support](#platform-support)
 - [I can't hear anything 🙉](#i-cant-hear-anything-)
 - [Setting a default theme](#setting-a-default-theme)
+- [Command-line arguments](#command-line-arguments)
 - [Adding a new theme](#adding-a-new-theme)
 - [Things to do](#things-to-do)
 - [Acknowledgements](#acknowledgements)
@@ -88,7 +89,7 @@ Several themes are available:
 
 ```py
 >>> chime.themes()
-['big-sur', 'chime', 'mario', 'material', 'sonic', 'zelda']
+['big-sur', 'chime', 'mario', 'material', 'pokemon', 'sonic', 'zelda']
 
 ```
 
@@ -204,13 +205,32 @@ Note that setting `raise_error` won't do anything if `sync` is set to `False`.
 
 To change the default theme a configuration file may be created in `~/.config/chime/chime.conf` on Unix or `%APPDATA%\chime\chime.ini` on Windows.
 
-For example, to change the default theme to `'zelda'` the configuration file would contain:
+For example, to change the default theme to `'zelda'`, the configuration file would contain:
 
 ```ini
 [chime]
 theme = zelda
 
 ```
+
+## Command-line arguments
+
+Chime works by running commands in the CLI. For instance, `aplay` is used on Linux systems, while `afplay` is used on Darwin systems. Arguments can be specified by setting the `RUN_ARGS` variable. For example, here's how to select a specific sound card, assuming a Linux system using `aplay`:
+
+```py
+>>> chime.RUN_ARGS = "--device sysdefault:CARD=PCH"
+
+```
+
+You can also specify this as a default configuration in the configuration file:
+
+```ini
+[chime]
+cli_args = '--device sysdefault:CARD=PCH'
+
+```
+
+At present, it isn't possible to pass CLI arguments on Windows, due to a limitation of the [`winsound`](https://docs.python.org/3/library/winsound.html) module.
 
 ## Adding a new theme
 

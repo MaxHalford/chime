@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chime"
-version = "0.5.3"
+version = "0.7.0"
 license = "MIT"
 description = "Python sound notifications made easy."
 authors = ["Max Halford <maxhalford25@gmail.com>"]
@@ -23,3 +23,12 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 chime = "chime:main"
+
+[tool.pytest.ini_options]
+norecursedirs = [
+    "soundboard"
+]
+addopts = [
+    "--doctest-modules",
+    "--doctest-glob=README.md",
+]

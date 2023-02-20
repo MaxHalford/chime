@@ -6,41 +6,41 @@ jobs:
   ubuntu:
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8]
+        python: [3.9, "3.10", "3.11"]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python }}
-    - name: Install aplay
-      run: sudo apt-get install alsa-utils pulseaudio
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install --constraint=.github/workflows/constraints.txt poetry
-        poetry install
-    - name: pytest
-      run: |
-        poetry run pytest
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install aplay
+        run: sudo apt-get install alsa-utils pulseaudio
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --constraint=.github/workflows/constraints.txt poetry
+          poetry install
+      - name: pytest
+        run: |
+          poetry run pytest
 
   macos:
     strategy:
-        matrix:
-          python: [3.6, 3.7, 3.8]
+      matrix:
+        python: [3.9, "3.10", "3.11"]
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install --constraint=.github/workflows/constraints.txt poetry
-        poetry install
-    - name: pytest
-      run: |
-        poetry run pytest
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --constraint=.github/workflows/constraints.txt poetry
+          poetry install
+      - name: pytest
+        run: |
+          poetry run pytest

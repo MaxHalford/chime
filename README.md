@@ -10,8 +10,8 @@
     <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="tests">
   </a>
   <!-- Soundboard -->
-  <a href="https://chime-soundboard.herokuapp.com/">
-    <img src="https://github.com/MaxHalford/chime/workflows/soundboard/badge.svg?style=flat-square" alt="soundboard">
+  <a href="https://chime-soundboard.streamlit.app/">
+    <img src="https://img.shields.io/website?label=docs&style=flat-square&url=[https%3A%2F%2Friverml.xyz%2F](https://chime-soundboard.streamlit.app/)" alt="soundboard">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">
@@ -102,7 +102,7 @@ The theme can be changed by passing a theme name to the `theme` function:
 
 A couple of things to note:
 
-- You can listen to the sounds interactively via [this soundboard](https://chime-soundboard.herokuapp.com/), which is made with [Streamlit](https://www.streamlit.io/).
+- You can listen to the sounds interactively via [this soundboard](https://chime-soundboard.streamlit.app/), which is made with [Streamlit](https://www.streamlit.io/).
 - A random theme will be picked each time you play a sound if you set the theme to `'random'`.
 
 ## IPython/Jupyter magic

@@ -11,7 +11,7 @@
   </a>
   <!-- Soundboard -->
   <a href="https://chime-soundboard.streamlit.app/">
-    <img src="https://img.shields.io/website?label=docs&style=flat-square&url=[https%3A%2F%2Friverml.xyz%2F](https://chime-soundboard.streamlit.app/)" alt="soundboard">
+    <img src="https://img.shields.io/website?label=docs&style=flat-square&url=https://chime-soundboard.streamlit.app/" alt="soundboard">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">

@@ -6,8 +6,8 @@
 
 <div align="center">
   <!-- Tests -->
-  <a href="https://github.com/MaxHalford/chime/actions?query=workflow%3Atests">
-    <img src="https://github.com/MaxHalford/chime/workflows/tests/badge.svg?style=flat-square" alt="tests">
+  <a href="https://github.com/MaxHalford/chime/actions/workflows/tests.yml">
+    <img src="https://github.com/MaxHalford/chime/actions/workflows/tests.yml/badge.svg?style=flat-square" alt="tests">
   </a>
   <!-- Soundboard -->
   <a href="https://chime-soundboard.streamlit.app/">

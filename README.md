@@ -89,7 +89,7 @@ Several themes are available:
 
 ```py
 >>> chime.themes()
-['big-sur', 'chime', 'mario', 'material', 'pokemon', 'sonic', 'zelda']
+['big-sur', 'chime', 'future', 'mario', 'material', 'pokemon', 'sonic', 'zelda']
 
 ```
 

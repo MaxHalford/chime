@@ -39,6 +39,7 @@
 - [Exception notifications](#exception-notifications)
 - [Command-line usage](#command-line-usage)
 - [Platform support](#platform-support)
+- [Running in the browser](#running-in-the-browser)
 - [I can't hear anything 🙉](#i-cant-hear-anything-)
 - [Setting a default theme](#setting-a-default-theme)
 - [Command-line arguments](#command-line-arguments)
@@ -57,7 +58,9 @@ I made this because I wanted a simple auditory cue system to tell me when a long
 pip install chime
 ```
 
-This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.6.
+This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It requires Python 3.11 or above.
+
+It also runs in the browser via [Pyodide](https://pyodide.org/). See the [Running in the browser](#running-in-the-browser) section.
 
 ## Basic usage
 
@@ -178,8 +181,26 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 - Darwin
 - Linux
 - Windows
+- OpenBSD
+- The browser, via [Pyodide](https://pyodide.org/) (see below)
+
+`chime` also detects when it's running under the [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/) (WSL). WSL has no audio device of its own, so in that case the sound is played through the Windows host using PowerShell. This addresses the situation where nothing could be heard from within WSL.
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
+
+## Running in the browser
+
+`chime` is a pure Python package, so its regular wheel runs as-is in the browser under [Pyodide](https://pyodide.org/). You can install it with [`micropip`](https://pyodide.org/en/stable/usage/loading-packages.html):
+
+```py
+import micropip
+await micropip.install("chime")
+
+import chime
+chime.success()
+```
+
+When running under Pyodide, `chime` plays sounds through the browser's [Web Audio API](https://developer.mozilla.org/docs/Web/API/Web_Audio_API) instead of shelling out to a command-line player. This means it works out of the box in [JupyterLite](https://jupyterlite.readthedocs.io/), [PyScript](https://pyscript.net/), and any other Pyodide-based environment.
 
 ## I can't hear anything 🙉
 

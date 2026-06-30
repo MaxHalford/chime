@@ -20,10 +20,9 @@ def test_speed():
     assert toc - tic < .1
 
 
-def test_no_warning():
-    with pytest.warns(None) as record:
-        chime.success(sync=True)
-    assert len(record) == 0
+def test_no_warning(recwarn):
+    chime.success(sync=True)
+    assert len(recwarn) == 0
 
 
 def test_no_exception():
@@ -32,6 +31,18 @@ def test_no_exception():
 
 def test_script():
     subprocess.run(['chime'], check=True)
+
+
+def test_play_wav_with_spaces_in_path(tmp_path: pathlib.Path):
+    """Paths containing spaces must be played correctly (regression test for #28)."""
+    src = chime.current_theme_dir() / 'success.wav'
+    spaced_dir = tmp_path / 'a directory with spaces'
+    spaced_dir.mkdir()
+    dst = spaced_dir / 'success.wav'
+    dst.write_bytes(src.read_bytes())
+    # If the path weren't quoted, the shell player would receive several arguments
+    # and exit with an error, which raise_error would surface as an exception.
+    chime.play_wav(dst, sync=True, raise_error=True)
 
 
 @pytest.mark.parametrize('theme', [theme for theme in chime.themes()])
@@ -50,13 +61,15 @@ def test_theme_events(theme: str, event: typing.Callable):
                                                   'chime.conf')),
                           ('Windows', pathlib.Path('/', 'Users', 'chime', 'AppData', 'Roaming',
                                                    'chime', 'chime.ini'))])
-def test__get_config_path(system: str, expected_config_path: str,
+def test__get_config_path(system: str, expected_config_path: pathlib.Path,
                           monkeypatch: _pytest.monkeypatch.MonkeyPatch):
     monkeypatch.setattr(pathlib.Path, name='home',
                         value=lambda: pathlib.Path('/', 'Users', 'chime'))
     monkeypatch.setenv('APPDATA', '/Users/chime/AppData/Roaming')
     config_path = chime._get_config_path(system)
-    assert config_path == expected_config_path
+    # _get_config_path calls .resolve().absolute(); apply the same normalisation to the
+    # expected path so the comparison holds on every OS (e.g. Windows prepends a drive).
+    assert config_path == expected_config_path.resolve().absolute()
 
 
 def test_config_file(monkeypatch: _pytest.monkeypatch.MonkeyPatch):

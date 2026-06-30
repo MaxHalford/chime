@@ -1,33 +1,45 @@
-[tool.poetry]
+[project]
 name = "chime"
 version = "0.7.0"
-license = "MIT"
 description = "Python sound notifications made easy."
-authors = ["Max Halford <maxhalford25@gmail.com>"]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Max Halford", email = "maxhalford25@gmail.com" }]
 keywords = ["notifications", "sound", "wav"]
-repository = "https://github.com/MaxHalford/chime"
-homepage = "https://github.com/MaxHalford/chime"
-include = ["themes/*/*.wav"]
+requires-python = ">=3.11"
+dependencies = []
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio",
+]
 
-[tool.poetry.dependencies]
-python = "^3.6"
+[project.urls]
+Homepage = "https://github.com/MaxHalford/chime"
+Repository = "https://github.com/MaxHalford/chime"
 
-[tool.poetry.dev-dependencies]
-pytest = "*"
-streamlit = "^0.69"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
+[project.scripts]
 chime = "chime:main"
 
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["chime"]
+# .wav theme assets live inside the package and must ship in the wheel (see #29).
+artifacts = ["chime/themes/**/*.wav"]
+
+[tool.hatch.build.targets.sdist]
+include = ["chime", "README.md", "LICENSE"]
+
 [tool.pytest.ini_options]
-norecursedirs = [
-    "soundboard"
-]
+norecursedirs = ["soundboard"]
 addopts = [
     "--doctest-modules",
     "--doctest-glob=README.md",

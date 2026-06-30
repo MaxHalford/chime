@@ -1,9 +1,11 @@
 import argparse
+import base64
 import configparser
 import os
 import pathlib
 import platform
 import random
+import shlex
 import subprocess as sp
 import sys
 import typing
@@ -11,6 +13,13 @@ import warnings
 
 if platform.system() == "Windows":
     import winsound
+
+
+def _is_wsl() -> bool:
+    """Return whether we're running inside the Windows Subsystem for Linux."""
+    if platform.system() != "Linux":
+        return False
+    return "microsoft" in platform.uname().release.lower()
 
 try:
     from IPython.core import magic
@@ -81,22 +90,23 @@ THEME = _get_default_theme(config_path, fallback_theme="chime")
 RUN_ARGS = _get_default_run_args(config_path)
 
 
-__all__ = ["error", "info", "notify_exceptions", "success" "theme", "themes", "warning"]
+__all__ = ["error", "info", "notify_exceptions", "success", "theme", "themes", "warning"]
 
 
-def run(command: str, sync: bool, raise_error: bool):
+def run(command, sync: bool, raise_error: bool, shell: bool = True):
     if sync:
 
         try:
-            sp.run(command, shell=True, check=True, stdout=sp.PIPE, stderr=sp.PIPE)
+            sp.run(command, shell=shell, check=True, stdout=sp.PIPE, stderr=sp.PIPE)
         except sp.CalledProcessError as e:
-            msg = f"{e} stderr: {e.stderr.decode().strip()}"
+            stderr = e.stderr.decode().strip() if e.stderr else ""
+            msg = f"{e} stderr: {stderr}"
             if raise_error:
                 raise RuntimeError(msg)
             else:
                 warnings.warn(msg)
     else:
-        sp.Popen(command, shell=True, stderr=sp.DEVNULL)
+        sp.Popen(command, shell=shell, stderr=sp.DEVNULL)
 
 
 def play_wav(path: pathlib.Path, sync=True, raise_error=True):
@@ -118,16 +128,37 @@ def play_wav(path: pathlib.Path, sync=True, raise_error=True):
 
     """
 
-    system = platform.system()
+    # When running in the browser (Pyodide/Emscripten) there is no shell to play
+    # sound with, so we hand the audio off to the Web Audio API via the bundled bytes.
+    if sys.platform == "emscripten":
+        play_wav_in_browser(path, raise_error)
+        return
 
-    if system == "Darwin":
-        run(f"afplay {RUN_ARGS} {path}", sync, raise_error)
+    system = platform.system()
+    quoted = shlex.quote(str(path))
+
+    if _is_wsl():
+        # WSL has no audio device of its own, so we play the file through the
+        # Windows host using PowerShell's SoundPlayer.
+        win_path = sp.run(
+            ["wslpath", "-w", str(path)], stdout=sp.PIPE, text=True
+        ).stdout.strip()
+        ps = f"(New-Object Media.SoundPlayer '{win_path}').PlaySync()"
+        run(
+            ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", ps],
+            sync,
+            raise_error,
+            shell=False,
+        )
+
+    elif system == "Darwin":
+        run(f"afplay {RUN_ARGS} {quoted}", sync, raise_error)
 
     elif system == "Linux":
-        run(f"aplay {RUN_ARGS} {path}", sync, raise_error)
+        run(f"aplay {RUN_ARGS} {quoted}", sync, raise_error)
 
     elif system == "OpenBSD":
-        run(f"aucat {RUN_ARGS} -i {path}", sync, raise_error)
+        run(f"aucat {RUN_ARGS} -i {quoted}", sync, raise_error)
 
     elif system == "Windows":
         flags = winsound.SND_FILENAME
@@ -139,10 +170,29 @@ def play_wav(path: pathlib.Path, sync=True, raise_error=True):
             if raise_error:
                 raise e
             else:
-                warnings.warn(e)
+                warnings.warn(str(e))
 
     else:
         raise RuntimeError(f"Unsupported platform ({sys.platform})")
+
+
+def play_wav_in_browser(path: pathlib.Path, raise_error: bool):
+    """Play a .wav file in the browser via the Web Audio API.
+
+    This is used when chime runs under Pyodide/Emscripten, where there is no shell to
+    spawn an audio player. The .wav bytes are embedded in a data URL and handed to a
+    JavaScript ``Audio`` element. Playback is always asynchronous in this context.
+    """
+    try:
+        from js import Audio  # type: ignore
+
+        data = base64.b64encode(pathlib.Path(path).read_bytes()).decode()
+        Audio.new(f"data:audio/wav;base64,{data}").play()
+    except Exception as e:  # pragma: no cover - only reachable in a browser
+        if raise_error:
+            raise
+        else:
+            warnings.warn(str(e))
 
 
 def themes_dir() -> pathlib.Path:
@@ -167,7 +217,7 @@ def themes() -> typing.List[str]:
     )
 
 
-def theme(name: str = None):
+def theme(name: typing.Optional[str] = None):
     """Set the current theme.
 
     Parameters:
@@ -193,7 +243,7 @@ def theme(name: str = None):
 def notify(event: str, sync: bool, raise_error: bool):
     wav_path = current_theme_dir().joinpath(f"{event}.wav")
     if not wav_path.exists():
-        raise ValueError(f"{wav_path} is doesn't exist")
+        raise ValueError(f"{wav_path} doesn't exist")
     play_wav(wav_path, sync, raise_error)
 
 

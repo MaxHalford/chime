@@ -1,6 +1,7 @@
 import importlib
 import pathlib
 import platform
+import shlex
 import subprocess
 import tempfile
 import textwrap
@@ -33,16 +34,21 @@ def test_script():
     subprocess.run(['chime'], check=True)
 
 
-def test_play_wav_with_spaces_in_path(tmp_path: pathlib.Path):
-    """Paths containing spaces must be played correctly (regression test for #28)."""
-    src = chime.current_theme_dir() / 'success.wav'
+@pytest.mark.skipif(platform.system() == 'Windows',
+                    reason='Windows plays via winsound, which takes the path directly')
+def test_play_wav_with_spaces_in_path(tmp_path: pathlib.Path,
+                                      monkeypatch: _pytest.monkeypatch.MonkeyPatch):
+    """Paths containing spaces must be passed as a single argument (regression for #28)."""
+    commands = []
+    monkeypatch.setattr(chime, 'run',
+                        lambda command, *args, **kwargs: commands.append(command))
     spaced_dir = tmp_path / 'a directory with spaces'
     spaced_dir.mkdir()
     dst = spaced_dir / 'success.wav'
-    dst.write_bytes(src.read_bytes())
-    # If the path weren't quoted, the shell player would receive several arguments
-    # and exit with an error, which raise_error would surface as an exception.
+    dst.write_bytes(b'')
     chime.play_wav(dst, sync=True, raise_error=True)
+    # Were the path not quoted, the shell would split it into several arguments.
+    assert str(dst) in shlex.split(commands[0])
 
 
 @pytest.mark.parametrize('theme', [theme for theme in chime.themes()])

@@ -184,7 +184,7 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 - OpenBSD
 - The browser, via [Pyodide](https://pyodide.org/) (see below)
 
-`chime` also detects when it's running under the [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/) (WSL). WSL has no audio device of its own, so in that case the sound is played through the Windows host using PowerShell. This addresses the situation where nothing could be heard from within WSL.
+`chime` also detects when it's running under the [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/) (WSL). WSL has no audio device of its own, so in that case the sound is played through the Windows host using PowerShell.
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
 
@@ -209,15 +209,13 @@ Did you check if you turned your sound on? Just kidding. 😜
 This library is designed to be non-invasive. By default, sounds are played asynchronously in unchecked processes. Therefore, if something goes wrong, the process dies silently. If you can't hear anything and you think that the issue is coming from `chime`, then set the `sync` parameter when you play a sound:
 
 ```py
->>> chime.info(sync=True)
-
+chime.info(sync=True)
 ```
 
 This will play the sound synchronously and issue a warning if something goes wrong, which should allow you to debug the issue. You can also raise an exception instead of sending a warning by setting the `raise_error` parameter:
 
 ```py
->>> chime.info(sync=True, raise_error=True)
-
+chime.info(sync=True, raise_error=True)
 ```
 
 Note that setting `raise_error` won't do anything if `sync` is set to `False`.

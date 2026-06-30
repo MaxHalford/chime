@@ -7,23 +7,19 @@
 <div align="center">
   <!-- Tests -->
   <a href="https://github.com/MaxHalford/chime/actions/workflows/tests.yml">
-    <img src="https://github.com/MaxHalford/chime/actions/workflows/tests.yml/badge.svg?style=flat-square" alt="tests">
-  </a>
-  <!-- Soundboard -->
-  <a href="https://chime-soundboard.streamlit.app/">
-    <img src="https://img.shields.io/website?label=soundboard&style=flat-square&url=https://chime-soundboard.streamlit.app/" alt="soundboard">
+    <img src="https://img.shields.io/github/actions/workflow/status/MaxHalford/chime/tests.yml?label=tests&style=flat-square" alt="tests">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">
-    <img src="https://img.shields.io/pypi/v/chime.svg?label=release&color=blue&style=flat-square" alt="pypi">
+    <img src="https://img.shields.io/pypi/v/chime?label=release&color=blue&style=flat-square" alt="pypi">
   </a>
-  <!-- PePy -->
+  <!-- Downloads -->
   <a href="https://pepy.tech/project/chime">
-    <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&maxAge=86400&label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fchime" alt="pepy">
+    <img src="https://img.shields.io/pepy/dt/chime?label=downloads&color=blue&style=flat-square" alt="downloads">
   </a>
   <!-- License -->
   <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="license">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="license">
   </a>
 </div>
 <br>

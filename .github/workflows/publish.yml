@@ -1,0 +1,24 @@
+name: Publish
+
+# Publishes chime to PyPI whenever a GitHub release is published.
+# Uses PyPI trusted publishing (OIDC) — no API token needs to be stored.
+# One-time setup: add a trusted publisher on PyPI for this repo, workflow
+# `publish.yml`, environment `pypi`.
+on:
+  release:
+    types: [published]
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Build distributions
+        run: uv build
+      - name: Publish to PyPI
+        run: uv publish --trusted-publishing always

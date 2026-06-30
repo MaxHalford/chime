@@ -1,6 +1,7 @@
 import importlib
 import pathlib
 import platform
+import shlex
 import subprocess
 import tempfile
 import textwrap
@@ -20,10 +21,9 @@ def test_speed():
     assert toc - tic < .1
 
 
-def test_no_warning():
-    with pytest.warns(None) as record:
-        chime.success(sync=True)
-    assert len(record) == 0
+def test_no_warning(recwarn):
+    chime.success(sync=True)
+    assert len(recwarn) == 0
 
 
 def test_no_exception():
@@ -32,6 +32,23 @@ def test_no_exception():
 
 def test_script():
     subprocess.run(['chime'], check=True)
+
+
+@pytest.mark.skipif(platform.system() == 'Windows',
+                    reason='Windows plays via winsound, which takes the path directly')
+def test_play_wav_with_spaces_in_path(tmp_path: pathlib.Path,
+                                      monkeypatch: _pytest.monkeypatch.MonkeyPatch):
+    """Paths containing spaces must be passed as a single argument (regression for #28)."""
+    commands = []
+    monkeypatch.setattr(chime, 'run',
+                        lambda command, *args, **kwargs: commands.append(command))
+    spaced_dir = tmp_path / 'a directory with spaces'
+    spaced_dir.mkdir()
+    dst = spaced_dir / 'success.wav'
+    dst.write_bytes(b'')
+    chime.play_wav(dst, sync=True, raise_error=True)
+    # Were the path not quoted, the shell would split it into several arguments.
+    assert str(dst) in shlex.split(commands[0])
 
 
 @pytest.mark.parametrize('theme', [theme for theme in chime.themes()])
@@ -50,13 +67,15 @@ def test_theme_events(theme: str, event: typing.Callable):
                                                   'chime.conf')),
                           ('Windows', pathlib.Path('/', 'Users', 'chime', 'AppData', 'Roaming',
                                                    'chime', 'chime.ini'))])
-def test__get_config_path(system: str, expected_config_path: str,
+def test__get_config_path(system: str, expected_config_path: pathlib.Path,
                           monkeypatch: _pytest.monkeypatch.MonkeyPatch):
     monkeypatch.setattr(pathlib.Path, name='home',
                         value=lambda: pathlib.Path('/', 'Users', 'chime'))
     monkeypatch.setenv('APPDATA', '/Users/chime/AppData/Roaming')
     config_path = chime._get_config_path(system)
-    assert config_path == expected_config_path
+    # _get_config_path calls .resolve().absolute(); apply the same normalisation to the
+    # expected path so the comparison holds on every OS (e.g. Windows prepends a drive).
+    assert config_path == expected_config_path.resolve().absolute()
 
 
 def test_config_file(monkeypatch: _pytest.monkeypatch.MonkeyPatch):

@@ -7,23 +7,19 @@
 <div align="center">
   <!-- Tests -->
   <a href="https://github.com/MaxHalford/chime/actions/workflows/tests.yml">
-    <img src="https://github.com/MaxHalford/chime/actions/workflows/tests.yml/badge.svg?style=flat-square" alt="tests">
-  </a>
-  <!-- Soundboard -->
-  <a href="https://chime-soundboard.streamlit.app/">
-    <img src="https://img.shields.io/website?label=soundboard&style=flat-square&url=https://chime-soundboard.streamlit.app/" alt="soundboard">
+    <img src="https://img.shields.io/github/actions/workflow/status/MaxHalford/chime/tests.yml?label=tests&style=flat-square" alt="tests">
   </a>
   <!-- PyPI -->
   <a href="https://pypi.org/project/chime">
-    <img src="https://img.shields.io/pypi/v/chime.svg?label=release&color=blue&style=flat-square" alt="pypi">
+    <img src="https://img.shields.io/pypi/v/chime?label=release&color=blue&style=flat-square" alt="pypi">
   </a>
-  <!-- PePy -->
+  <!-- Downloads -->
   <a href="https://pepy.tech/project/chime">
-    <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&maxAge=86400&label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fchime" alt="pepy">
+    <img src="https://img.shields.io/pepy/dt/chime?label=downloads&color=blue&style=flat-square" alt="downloads">
   </a>
   <!-- License -->
   <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="license">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="license">
   </a>
 </div>
 <br>
@@ -39,6 +35,7 @@
 - [Exception notifications](#exception-notifications)
 - [Command-line usage](#command-line-usage)
 - [Platform support](#platform-support)
+- [Running in the browser](#running-in-the-browser)
 - [I can't hear anything 🙉](#i-cant-hear-anything-)
 - [Setting a default theme](#setting-a-default-theme)
 - [Command-line arguments](#command-line-arguments)
@@ -57,7 +54,9 @@ I made this because I wanted a simple auditory cue system to tell me when a long
 pip install chime
 ```
 
-This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It should work for any Python version above or equal to 3.6.
+This library has **no dependencies**. The IPython/Jupyter functionality is only imported if you've installed the `ipython` library. It requires Python 3.11 or above.
+
+It also runs in the browser via [Pyodide](https://pyodide.org/). See the [Running in the browser](#running-in-the-browser) section.
 
 ## Basic usage
 
@@ -178,8 +177,26 @@ Under the hood, `chime` runs a command in the shell to play a `.wav` file. The c
 - Darwin
 - Linux
 - Windows
+- OpenBSD
+- The browser, via [Pyodide](https://pyodide.org/) (see below)
+
+`chime` also detects when it's running under the [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/) (WSL). WSL has no audio device of its own, so in that case the sound is played through the Windows host using PowerShell.
 
 A `UserWarning` is raised if you run a `chime` sound on an unsupported platform. Feel free to get in touch or issue a pull request if you want to add support for a specific platform. Likewise, don't hesitate if you're encountering trouble with one of the above platforms. I won't bite.
+
+## Running in the browser
+
+`chime` is a pure Python package, so its regular wheel runs as-is in the browser under [Pyodide](https://pyodide.org/). You can install it with [`micropip`](https://pyodide.org/en/stable/usage/loading-packages.html):
+
+```py
+import micropip
+await micropip.install("chime")
+
+import chime
+chime.success()
+```
+
+When running under Pyodide, `chime` plays sounds through the browser's [Web Audio API](https://developer.mozilla.org/docs/Web/API/Web_Audio_API) instead of shelling out to a command-line player. This means it works out of the box in [JupyterLite](https://jupyterlite.readthedocs.io/), [PyScript](https://pyscript.net/), and any other Pyodide-based environment.
 
 ## I can't hear anything 🙉
 
@@ -188,15 +205,13 @@ Did you check if you turned your sound on? Just kidding. 😜
 This library is designed to be non-invasive. By default, sounds are played asynchronously in unchecked processes. Therefore, if something goes wrong, the process dies silently. If you can't hear anything and you think that the issue is coming from `chime`, then set the `sync` parameter when you play a sound:
 
 ```py
->>> chime.info(sync=True)
-
+chime.info(sync=True)
 ```
 
 This will play the sound synchronously and issue a warning if something goes wrong, which should allow you to debug the issue. You can also raise an exception instead of sending a warning by setting the `raise_error` parameter:
 
 ```py
->>> chime.info(sync=True, raise_error=True)
-
+chime.info(sync=True, raise_error=True)
 ```
 
 Note that setting `raise_error` won't do anything if `sync` is set to `False`.

@@ -56,7 +56,11 @@ def _get_default_theme(path: pathlib.Path, fallback_theme: str) -> str:
     """
     if path.exists():
         config = configparser.ConfigParser()
-        config.read(path)
+        try:
+            config.read(path)
+        except configparser.Error:
+            # Malformed config file: ignore it and use the fallback theme.
+            return fallback_theme
         if "chime" in config:
             default_theme = config["chime"].get("theme", fallback_theme)
         else:
@@ -75,7 +79,11 @@ def _get_default_run_args(path: pathlib.Path) -> str:
     """
     if path.exists():
         config = configparser.ConfigParser()
-        config.read(path)
+        try:
+            config.read(path)
+        except configparser.Error:
+            # Malformed config file: ignore it and use no default args.
+            return ""
         if "chime" in config:
             default_args = config["chime"].get("cli_args", "")
         else:
